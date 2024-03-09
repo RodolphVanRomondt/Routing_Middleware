@@ -34,10 +34,23 @@ router.get("/:name", function (req, res) {
     const idx = items.findIndex(item => item.name === req.params.name);
 
     if (idx === -1) {
-        return res.status(400).json({message: "Item Not Found."});
+        return res.status(404).json({message: "Item Not Found."});
     }
 
     return res.json(items[idx]);
+});
+
+/** DELETE /items/[name]: delete item, return status */
+router.delete("/:name", function (req, res) {
+    const idx = items.findIndex(item => item.name === req.params.name);
+
+    if (idx === -1) {
+        return res.status(404).json({ message: "Item Not Found." });
+    }
+
+    items.splice(idx, 1);
+
+    return res.json({ message: "Item Deleted." });
 });
 
 
