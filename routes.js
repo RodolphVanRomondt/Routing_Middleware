@@ -25,8 +25,19 @@ router.post("/", function (req, res) {
     } else {
         return res.status(400).json({message: "Item is already in shopping list."});
     }
-    
+
     return res.status(201).json({ added: req.body});
+});
+
+/* GET /items/[name]: get item by name. */
+router.get("/:name", function (req, res) {
+    const idx = items.findIndex(item => item.name === req.params.name);
+
+    if (idx === -1) {
+        return res.status(400).json({message: "Item Not Found."});
+    }
+
+    return res.json(items[idx]);
 });
 
 
